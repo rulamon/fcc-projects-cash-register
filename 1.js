@@ -10,10 +10,10 @@ function checkCashRegister(price, cash, cid) {
 		for (let i = cid.length - 1; i >= 0 && change > 0; i--) {
 			let currInReg = cid[i][1];
 			let curr = currencyArr[i];
-			if (change > curr && currInReg > 0 && change >= currInReg) {
+			if (change > curr && change >= currInReg) {
 				result.change.push(cid[i]);
 				change = (Math.round(change * 100) - Math.round(currInReg * 100)) / 100;
-			} else if (change > curr && currInReg > 0 && change < currInReg) {
+			} else if (change > curr && change < currInReg) {
 				result.change.push([cid[i][0], (Math.round(change * 100) - (Math.round(change * 100)) % Math.round(curr * 100))/100]);
 				change = (Math.round(change * 100) % Math.round(curr * 100)) / 100;
 			}
