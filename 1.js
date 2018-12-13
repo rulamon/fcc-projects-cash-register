@@ -2,7 +2,7 @@ function checkCashRegister(price, cash, cid) {
 	const currencyArr = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
 	let result = {status: "", change: []}
 	let change = Math.round((cash * 100) - (price * 100)) / 100 ;
-	let totalInDrawer = cid.map(val => val[1]).reduce((acc, val) => Math.round((acc * 100) + (val * 100)) / 100);
+	let totalInDrawer = cid.reduce((acc, val) => {return Math.round((acc * 100) + (val[1] * 100)) / 100}, 0);
 	if (change === totalInDrawer) {
 		result.status = "CLOSED"
 		result.change = cid;
