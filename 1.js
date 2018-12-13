@@ -1,8 +1,8 @@
 function checkCashRegister(price, cash, cid) {
 	const currencyArr = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
 	let result = {status: "", change: []}
-	let change = (Math.round(cash * 100) - Math.round(price * 100)) / 100 ;
-	let totalInDrawer = cid.map(val => val[1]).reduce((acc, val) => (Math.round(acc * 100) + Math.round(val * 100)) / 100);
+	let change = Math.round((cash * 100) - (price * 100)) / 100 ;
+	let totalInDrawer = cid.map(val => val[1]).reduce((acc, val) => Math.round((acc * 100) + (val * 100)) / 100);
 	if (change === totalInDrawer) {
 		result.status = "CLOSED"
 		result.change = cid;
@@ -12,10 +12,10 @@ function checkCashRegister(price, cash, cid) {
 			let curr = currencyArr[i];
 			if (change > curr && change >= currInReg) {
 				result.change.push(cid[i]);
-				change = (Math.round(change * 100) - Math.round(currInReg * 100)) / 100;
+				change = Math.round((change * 100) - (currInReg * 100)) / 100;
 			} else if (change > curr && change < currInReg) {
-				result.change.push([cid[i][0], (Math.round(change * 100) - (Math.round(change * 100)) % Math.round(curr * 100))/100]);
-				change = (Math.round(change * 100) % Math.round(curr * 100)) / 100;
+				result.change.push([cid[i][0], Math.round((change * 100) - (change * 100) % (curr * 100))/100]);
+				change = Math.round((change * 100) % (curr * 100)) / 100;
 			}
 		}
 		if (change === 0 && totalInDrawer > 0) {
